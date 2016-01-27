@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Layout</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
+		<link rel="stylesheet" href="./styles.css">
+	</head>
+	<body>
+		<div class="wrap" data-layout>
+		  <img src="https://unsplash.it/300/350" alt="" />
+		  <img src="https://unsplash.it/324/380" alt="" />
+		  <img src="https://unsplash.it/400/350" alt="" />
+		  <img src="https://unsplash.it/460/390" alt="" />
+		  <img src="https://unsplash.it/500/340" alt="" />
+		  <img src="https://unsplash.it/250/300" alt="" />
+		  <img src="https://unsplash.it/380/300" alt="" />
+		</div>
+		<script src="./build/js/Layout.js"></script>
+		<script>
+			var a = document.querySelector('[data-layout]');
+			var b = new Layout(a);
+		</script>
+	</body>
+</html>
