@@ -40,7 +40,7 @@ function scripts() {
 	return browserify(props)
 		.transform(babelify)
 		.bundle()
-		.on('error', function(err) { console.error(err); this.emit('end'); })
+		.on('error', function(err) { console.error(err.toString()); this.emit('end'); })
 		.pipe(source('Layout.js'))
 		.pipe(buffer())
 		.pipe(sourcemaps.init({ loadMaps: true }))

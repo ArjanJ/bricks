@@ -7,18 +7,28 @@
 	</head>
 	<body>
 		<div class="wrap" data-layout>
-		  <img src="https://unsplash.it/300/350" alt="" />
-		  <img src="https://unsplash.it/324/380" alt="" />
-		  <img src="https://unsplash.it/400/350" alt="" />
-		  <img src="https://unsplash.it/460/390" alt="" />
-		  <img src="https://unsplash.it/500/340" alt="" />
-		  <img src="https://unsplash.it/250/300" alt="" />
-		  <img src="https://unsplash.it/380/300" alt="" />
+		  <img src="https://unsplash.it/500/800?image=100" alt="" />
+		  <img src="https://unsplash.it/324/380?image=110" alt="" />
+		  <img src="https://unsplash.it/400/350?image=120" alt="" />
+		  <img src="https://unsplash.it/460/690?image=130" alt="" />
+		  <img src="https://unsplash.it/500/340?image=140" alt="" />
+		  <img src="https://unsplash.it/450/700?image=151" alt="" />
+		  <img src="https://unsplash.it/380/300?image=160" alt="" />
+		  <img src="https://unsplash.it/320/310?image=170" alt="" />
+		  <img src="https://unsplash.it/480/300?image=180" alt="" />
+		  <img src="https://unsplash.it/600/305?image=190" alt="" />
 		</div>
 		<script src="./build/js/Layout.js"></script>
 		<script>
 			var a = document.querySelector('[data-layout]');
-			var b = new Layout(a);
+			var b = new Layout(a, {
+				afterLoad: function() {
+					console.log('afterLoad');
+				},
+				beforeLoad: function() {
+					console.log('beforeLoad');
+				}
+			});
 		</script>
 	</body>
 </html>
