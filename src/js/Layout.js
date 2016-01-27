@@ -2,31 +2,43 @@ import imagesLoaded from 'imagesloaded';
 
 const Layout = ((imagesLoaded) => {
 
-  const maxHeight = 300;
+  let maxHeight = 300;
 
   class Layout {
 
     constructor(elem, opts) {
       this._elem = elem;
-      this._images = [].slice.call(elem.querySelectorAll('img'));
-      this.init(opts);
+      this._images = [].slice.call(this._elem.querySelectorAll('img'));
+      this._opts = opts || {};
+      this.init();
     }
 
-    init(opts) {
+    init() {
+      this._initOptions();
       this._addEventListeners();
       this._loadImages();
+    }
 
-      if (opts.hasOwnProperty('beforeLoad')) {
-        if (typeof opts.beforeLoad === 'function') {
-          this._beforeLoad = opts.beforeLoad;
+    _initOptions() {
+      if (this._opts.hasOwnProperty('maxHeight')) {
+        if (typeof this._opts.maxHeight === 'number') {
+          maxHeight = this._opts.maxHeight;
         } else {
-          throw new Error(`beforeLoad must be a function not a ${typeof opts.beforeLoad}.`);
+          throw new Error(`maxHeight must be a number not a ${typeof this._opts.beforeLoad}.`);
         }
       }
 
-      if (opts.hasOwnProperty('afterLoad')) {
-        if (typeof opts.afterLoad === 'function') {
-          this._afterLoad = opts.afterLoad;
+      if (this._opts.hasOwnProperty('beforeLoad')) {
+        if (typeof this._opts.beforeLoad === 'function') {
+          this._beforeLoad = this._opts.beforeLoad;
+        } else {
+          throw new Error(`beforeLoad must be a function not a ${typeof this._opts.beforeLoad}.`);
+        }
+      }
+
+      if (this._opts.hasOwnProperty('afterLoad')) {
+        if (typeof this._opts.afterLoad === 'function') {
+          this._afterLoad = this._opts.afterLoad;
         } else {
           throw new Error(`afterLoad must be a function not a ${typeof opts.afterLoad}.`);
         }
@@ -39,11 +51,26 @@ const Layout = ((imagesLoaded) => {
 
     _loadImages() {
       const imgLoad = imagesLoaded(this._elem);
+      let delay = 0;
 
       imgLoad.on('always', (instance) => {
+
+        // Call beforeLoad().
         if (this._beforeLoad) this._beforeLoad();
+
+        // Create rows of images.
         this._createRows(this._images);
+
+        // Call afterLoad().
         if (this._afterLoad) this._afterLoad();
+
+        // Stagger animation of each image.
+        instance.images.forEach((img) => {
+          delay += 0.025;
+          img.img.style.animationDelay = `${delay}s`;
+          img.img.classList.add('is-loaded');
+          this._animationComplete(img.img);
+        });
       });
 
       imgLoad.on('progress', (instance, image) => {
@@ -98,6 +125,15 @@ const Layout = ((imagesLoaded) => {
       }
 
       return containerWidth / val;
+    }
+
+    _animationComplete(img) {
+      const completed = () => {
+        img.style.removeProperty('animation-delay');
+        img.removeEventListener('animationend', completed);
+      }
+      
+      img.addEventListener('animationend', completed);
     }
   }
 

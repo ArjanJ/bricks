@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Layout</title>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
 		<link rel="stylesheet" href="./styles.css">
@@ -18,17 +19,34 @@
 		  <img src="https://unsplash.it/480/300?image=180" alt="" />
 		  <img src="https://unsplash.it/600/305?image=190" alt="" />
 		</div>
+
+		<div class="wrap" data-layout>
+		  <img src="https://unsplash.it/500/800?image=111" alt="" />
+		  <img src="https://unsplash.it/324/380?image=220" alt="" />
+		  <img src="https://unsplash.it/400/350?image=320" alt="" />
+		  <img src="https://unsplash.it/460/690?image=430" alt="" />
+		  <img src="https://unsplash.it/500/340?image=540" alt="" />
+		  <img src="https://unsplash.it/450/700?image=651" alt="" />
+		  <img src="https://unsplash.it/380/300?image=760" alt="" />
+		  <img src="https://unsplash.it/320/310?image=170" alt="" />
+		  <img src="https://unsplash.it/480/300?image=180" alt="" />
+		  <img src="https://unsplash.it/600/305?image=190" alt="" />
+		</div>
 		<script src="./build/js/Layout.js"></script>
 		<script>
-			var a = document.querySelector('[data-layout]');
-			var b = new Layout(a, {
-				afterLoad: function() {
-					console.log('afterLoad');
-				},
-				beforeLoad: function() {
-					console.log('beforeLoad');
-				}
-			});
+			var a = document.querySelectorAll('[data-layout]');
+			for (var i = 0; i < a.length; i++) {
+				var b = new Layout(a[i], {
+					afterLoad: function() {
+						console.log('afterLoad');
+					},
+					beforeLoad: function() {
+						console.log('beforeLoad');
+					},
+					maxHeight: 300
+				});
+			}
+			
 		</script>
 	</body>
 </html>
