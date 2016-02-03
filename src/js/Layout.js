@@ -1,162 +1,232 @@
 import imagesLoaded from 'imagesloaded';
 
+
+/**
+ *
+ * Bricks - A responsive justified image layout plugin written in
+ * vanilla JavaScript, inspired by Google Images.
+ * v0.0.1
+ * Arjan Jassal <hello@arjanjassal.com>
+ * MIT License
+ *
+ */
+
 const Layout = ((imagesLoaded) => {
 
-  const defaults = {
-    loadedClassName: 'is-loaded',
-    maxHeight: 250
-  };
+	const defaults = {
+		animation: true,
+		animationDelay: 50,
+		loadedClassName: 'is-loaded',
+		margin: 0,
+		maxHeight: 250
+	};
 
-  class Layout {
+	/**
+	 *
+	 * CLASS DEFINITION
+	 *
+	 */
 
-    constructor(elem, opts) {
-      this._elem = elem;
-      this._images = [].slice.call(this._elem.querySelectorAll('img'));
-      this._opts = Object.assign(defaults, opts);
-      this.init();
-      this.appendImages = this._loadNewImages;
-    }
+	class Layout {
 
-    init() {
-      this._initOptions();
-      this._addEventListeners();
-      this._loadImages();
-    }
+		constructor(elem, opts) {
+			this._elem = elem;
+			this._images = [].slice.call(this._elem.querySelectorAll('img'));
+			this._opts = Object.assign(defaults, opts);
+			this._init();
+		}
 
-    _loadNewImages(img) {
-      img.forEach((img) => {
-        this._images.push(img);
-      });
-      this._loadImages();
-    }
+		/**
+		 *
+		 * PRIVATE METHODS
+		 *
+		 */
 
-    _initOptions() {
-      if (typeof this._opts.maxHeight !== 'number') {
-        console.error(`maxHeight must be a number not a ${typeof this._opts.maxHeight}.`);
-      }
+		_init() {
+			this._initOptions();
+			this._addEventListeners();
+			this._loadImages();
+		}
 
-      if (this._opts.hasOwnProperty('beforeLoad')) {
-        if (typeof this._opts.beforeLoad === 'function') {
-          this._beforeLoad = this._opts.beforeLoad;
-        } else {
-          console.error(`beforeLoad must be a function not a ${typeof this._opts.beforeLoad}.`);
-        }
-      }
+		_initOptions() {
+			if (typeof this._opts.maxHeight !== 'number') {
+				console.error(`maxHeight must be a number not a ${typeof this._opts.maxHeight}.`);
+			}
 
-      if (this._opts.hasOwnProperty('afterLoad')) {
-        if (typeof this._opts.afterLoad === 'function') {
-          this._afterLoad = this._opts.afterLoad;
-        } else {
-          console.error(`afterLoad must be a function not a ${typeof opts.afterLoad}.`);
-        }
-      }
-    }
+			if (this._opts.hasOwnProperty('beforeLoad')) {
+				if (typeof this._opts.beforeLoad !== 'function') {
+					console.error(`beforeLoad must be a function not a ${typeof this._opts.beforeLoad}.`);
+				}
+			}
 
-    _addEventListeners() {
+			if (this._opts.hasOwnProperty('afterLoad')) {
+				if (typeof this._opts.afterLoad !== 'function') {
+					console.error(`afterLoad must be a function not a ${typeof opts.afterLoad}.`);
+				}
+			}
+		}
 
-      // Re-calculate image dimensions when the window is resized.
-      window.addEventListener('resize', this._createRows.bind(this, this._images));
-    }
+		_addEventListeners() {
 
-    _loadImages() {
-      const imgLoad = imagesLoaded(this._elem);
-      let delay = 0;
+			// Re-calculate image dimensions when the window is resized.
+			window.addEventListener('resize', this._createRows.bind(this, this._images));
+		}
 
-      imgLoad.on('always', (instance) => {
+		_loadImages() {
+			const imgLoad = imagesLoaded(this._elem);
 
-        // Call beforeLoad().
-        if (this._beforeLoad) this._beforeLoad();
+			imgLoad.on('always', (instance) => {
 
-        // Create rows of images.
-        this._createRows(this._images, this._elem.clientWidth);
+				// Call beforeLoad().
+				if (this._opts.beforeLoad) this._opts.beforeLoad();
 
-        // Call afterLoad().
-        if (this._afterLoad) this._afterLoad();
+				// Create rows of images.
+				this._createRows(this._images, this._elem.clientWidth);
 
-        // Stagger animation of each image.
-        instance.images.forEach((image) => {
-          let img = image.img;
-          delay += 0.025;
+				// Stagger animation of each image.
+				this._showImages(instance.images);
 
-          if (!img.classList.contains(this._opts.loadedClassName)) {
-            img.style.animationDelay = `${delay}s`;
-            img.classList.add(this._opts.loadedClassName);
-          }
-          
-          this._animationComplete(img);
+				// Call afterLoad().
+				if (this._opts.afterLoad) this._opts.afterLoad();
+			});
 
-          // Log error to console if image fails to load.
-          if (!image.isLoaded) {
-            console.error(`${image.img.src} failed to load.`);
-          }
-        });
-      });
+			imgLoad.on('progress', (instance, image) => {
+				let img = image.img;
+				img.setAttribute('data-width', img.offsetWidth);
+				img.setAttribute('data-height', img.offsetHeight);
+			});
+		}
 
-      imgLoad.on('progress', (instance, image) => {
-        let img = image.img;
-        console.log('a');
-        img.setAttribute('data-width', img.offsetWidth);
-        img.setAttribute('data-height', img.offsetHeight);
-      });
-    }
+		_showImages(images) {
+			let delay = 0;
+			images.forEach((image) => {
+				let img = image.img;
+			
+				if (this._opts.animation && !(img.classList.contains(this._opts.loadedClassName))) {
 
-    _createRows(images) {
-      const containerWidth = this._elem.clientWidth;
-      let imgs = images.slice();
-      let slice, height;
+					if (typeof this._opts.animationDelay !== 'number') {
+						delay += parseInt(defaults.animationDelay);
+						console.error('animationDelay must be a valid number.');
+					} else {
+						delay += parseInt(this._opts.animationDelay);
+					}
 
-      loop: while (imgs.length > 0) {
+					img.style.animationDelay = `${delay}ms`;
+					img.classList.add(this._opts.loadedClassName);
+				} else {
+					img.style.animationDuration = '0ms';
+					img.classList.add(this._opts.loadedClassName);
+				}
+				
+				this._animationComplete(img);
 
-        for (let i = 1; i <= imgs.length; i++) {
-          slice = imgs.slice(0, i);
-          height = this._getHeight(slice, containerWidth);
+				// Log error to console if image fails to load.
+				if (!image.isLoaded) {
+					console.error(`${image.img.src} failed to load.`);
+				}
+			});
+		}
 
-          if (height < this._opts.maxHeight) {
-            this._setDimensions(slice, height);
-            imgs = imgs.slice(i);
-            continue loop;
-          }
-        }
+		_createRows(images) {
+			const containerWidth = this._elem.clientWidth;
+			let imgs = this._images.slice();
+			let slice, height;
 
-        this._setDimensions(slice, Math.min(this._opts.maxHeight, height));
-        break;
-      }
-    }
+			loop: while (imgs.length > 0) {
 
-    _setDimensions(images, height) {
-      if (images && images.length) {
-        images.forEach((img) => {
-          let w = parseInt(img.getAttribute('data-width'));
-          let h = parseInt(img.getAttribute('data-height'));
-          img.style.width = height * (w / h) + 'px';
-          img.style.height = height + 'px';
-        });
-      }
-    }
+				for (let i = 1; i <= imgs.length; i++) {
+					slice = imgs.slice(0, i);
+					height = this._getHeight(slice, containerWidth);
 
-    _getHeight(images, containerWidth) {
-      let val = 0;
+					if (height < this._opts.maxHeight) {
+						this._setDimensions(slice, height);
+						if (this._opts.margin > 0) this._setMargins(slice);
+						imgs = imgs.slice(i);
+						continue loop;
+					}
+				}
 
-      if (images && images.length) {
-        images.forEach((img) => {
-          val += parseInt(img.getAttribute('data-width')) / parseInt(img.getAttribute('data-height'));
-        });
-      }
+				this._setDimensions(slice, Math.min(this._opts.maxHeight, height));
+				if (this._opts.margin > 0) this._setMargins(slice);
+				
+				break;
+			}
+		}
 
-      return containerWidth / val;
-    }
+		_setDimensions(images, height) {
+			if (images && images.length) {
+				images.forEach((img, i) => {
+					let w = parseInt(img.getAttribute('data-width'));
+					let h = parseInt(img.getAttribute('data-height'));
+					
+					img.style.width = height * (w / h) + 'px';
+					img.style.height = height + 'px';
+				});
+			}
+		}
 
-    _animationComplete(img) {
-      const completed = () => {
-        img.style.removeProperty('animation-delay');
-        img.removeEventListener('animationend', completed);
-      }
-      
-      img.addEventListener('animationend', completed);
-    }
-  }
+		_setMargins(images) {
+			if (images && images.length) {
+				images.forEach((img, i) => {
+					img.style.removeProperty('margin-left');
+					if (i === images.length-1) {
+						img.style.removeProperty('margin-right');
+					} else {
+						img.style.marginRight = this._opts.margin + 'px';
+					}
+						
+				});
+			}
+		}
 
-  return Layout;
+		_getHeight(images, containerWidth) {
+			let val = 0;
+			let margin = this._opts.margin;
+
+			if (margin > 0) {
+				containerWidth -= images.length * margin;
+				containerWidth += margin;
+			}
+
+			if (images && images.length) {
+				images.forEach((img, i) => {
+					let w = parseInt(img.getAttribute('data-width'));
+					let h = parseInt(img.getAttribute('data-height'));
+					val += (w / h);
+				});
+			}
+
+			return containerWidth / val;
+		}
+
+		_animationComplete(img) {
+			const completed = () => {
+				img.style.removeProperty('animation-delay');
+				img.removeEventListener('animationend', completed);
+			};
+			
+			img.addEventListener('animationend', completed);
+		}
+
+		/**
+		 *
+		 * PUBLIC METHODS
+		 *
+		 */
+
+		loadNewImages(img) {
+			if (img && img.length && typeof img === 'object') {
+				img.forEach((img) => {
+					this._images.push(img);
+				});
+				this._loadImages();
+			} else {
+				console.error('appendImages only accepts an array of image nodes.');
+			}
+		}
+	}
+
+	return Layout;
 
 })(imagesLoaded);
 

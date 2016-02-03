@@ -1,0 +1,25 @@
+{
+	"env": {
+		"browser": 1
+	},
+ 
+	"globals": {
+	 
+	},
+ 
+	"rules": {
+		"quotes": [2, "single"],
+		"eqeqeq": 1,
+		"strict": 1
+	},
+
+	"ecmaFeatures": {
+		"arrowFunctions": true,
+		"blockBindings": true,
+		"defaultParams": true,
+		"modules": true,
+		"classes": true,
+		"forOf": true,
+		"templateStrings": true
+	}
+}

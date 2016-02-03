@@ -1,0 +1,42 @@
+* {
+	box-sizing: border-box;
+}
+
+.bricks {
+	// border: 1px solid black;
+	max-width: 860px;
+	overflow: auto;
+ 	margin: 50px auto;
+
+ 	&__row {
+ 		overflow: auto;
+ 	}
+
+ 	&__item {
+ 		float: left;
+ 	}
+
+ 	&__img {
+ 		vertical-align: bottom;
+ 	}
+}
+
+img {
+	float: left;
+  opacity: 0;
+  transform: scale(0.5);
+  
+}
+
+img.is-loaded {
+	animation: is-loaded .25s ease-out;
+	animation-fill-mode: forwards;
+}
+
+@keyframes is-loaded {
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
