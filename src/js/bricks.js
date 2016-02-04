@@ -4,7 +4,7 @@ import imagesLoaded from 'imagesloaded';
 /**
  *
  * Bricks - A responsive, justified image layout plugin written in
- * vanilla JavaScript, and inspired by Google Images.
+ * JavaScript, and inspired by Google Images.
  * v0.0.1
  * Arjan Jassal <hello@arjanjassal.com>
  * MIT License
