@@ -1,8 +1,8 @@
 {
-  "name": "layout",
+  "name": "bricks",
   "version": "0.0.1",
-  "description": "",
-  "main": "./src/js/Layout.js",
+  "description": "A responsive, justified image layout plugin written in JavaScript, and inspired by Google Images.",
+  "main": "./lib/bricks.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,7 +15,7 @@
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "gulp": "^3.9.0",
-    "gulp-babel": "^6.1.1",
+    "gulp-babel": "^6.1.2",
     "gulp-cssnano": "^2.1.0",
     "gulp-eslint": "^1.1.1",
     "gulp-jshint": "^2.0.0",

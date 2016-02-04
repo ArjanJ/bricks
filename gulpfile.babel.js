@@ -2,7 +2,6 @@
 
 import autoprefixer from 'autoprefixer';
 import babel from 'gulp-babel';
-import babelify from 'babelify';
 import browserify from 'browserify';
 import buffer from 'vinyl-buffer';
 import cssnano from 'gulp-cssnano';
@@ -17,14 +16,16 @@ import uglify from 'gulp-uglify';
 
 const dirs = {
 	src: './src',
-	build: './build'
+	build: './build',
+	lib: './lib'
 };
 
 const paths = {
 	js: {
-		exports: `${dirs.src}/js/exports.js`,
+		exports: `${dirs.lib}/exports.js`,
 		src: `${dirs.src}/js/*.js`,
-		build: `${dirs.build}/js`
+		build: `${dirs.build}/js`,
+		lib: dirs.lib
 	},
 	css: {
 		src: `${dirs.src}/css/*.scss`,
@@ -32,28 +33,32 @@ const paths = {
 	}
 };
 
-gulp.task('default', ['watch']);
-gulp.task('watch', ['scripts', 'styles'], watch);
-gulp.task('scripts', ['lint'], scripts);
+gulp.task('default', ['watch', 'compileJS', 'packageJS', 'styles']);
+gulp.task('watch', watch);
+gulp.task('compileJS', compileJS);
+gulp.task('packageJS', ['compileJS', 'lint'], packageJS);
 gulp.task('lint', lint);
 gulp.task('styles', styles);
 
 function watch() {
-	gulp.watch(paths.js.src, ['scripts', 'lint']);
+	gulp.watch(paths.js.src, ['lint', 'compileJS', 'packageJS']);
 	gulp.watch(paths.css.src, ['styles']);
 }
 
-function scripts() {
+function compileJS() {
+	return gulp.src(paths.js.src)
+		.pipe(babel())
+		.on('error', handleError)
+		.pipe(gulp.dest(paths.js.lib));
+}
+
+function packageJS() {
 	const props = {
 		entries: paths.js.exports,
 		debug: true
 	};
 
 	return browserify(props)
-		.transform(babelify, {
-			sourceMaps: true,
-    	ignore: /(vendor)|(node_modules)/
-		})
 		.bundle()
 		.on('error', handleError)
 		.pipe(source('bricks.min.js'))
