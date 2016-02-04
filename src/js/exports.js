@@ -1,4 +1,4 @@
-import layout from './Layout';
+import bricks from './bricks';
 
-var Layout = window.Layout || layout;
-window.Layout = Layout;
+var b = window.bricks || bricks;
+window.Bricks = b;

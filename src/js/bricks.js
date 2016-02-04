@@ -3,20 +3,21 @@ import imagesLoaded from 'imagesloaded';
 
 /**
  *
- * Bricks - A responsive justified image layout plugin written in
- * vanilla JavaScript, inspired by Google Images.
+ * Bricks - A responsive, justified image layout plugin written in
+ * vanilla JavaScript, and inspired by Google Images.
  * v0.0.1
  * Arjan Jassal <hello@arjanjassal.com>
  * MIT License
  *
  */
 
-const Layout = ((imagesLoaded) => {
+const Bricks = ((imagesLoaded) => {
 
 	const defaults = {
 		animation: true,
 		animationDelay: 50,
-		loadedClassName: 'is-loaded',
+		imageContainerElement: 'div',
+		imageLoadedClassName: 'bricks__img--loaded',
 		margin: 0,
 		maxHeight: 250
 	};
@@ -27,7 +28,7 @@ const Layout = ((imagesLoaded) => {
 	 *
 	 */
 
-	class Layout {
+	class Bricks {
 
 		constructor(elem, opts) {
 			this._elem = elem;
@@ -43,12 +44,12 @@ const Layout = ((imagesLoaded) => {
 		 */
 
 		_init() {
-			this._initOptions();
+			this._checkOptions();
 			this._addEventListeners();
 			this._loadImages();
 		}
 
-		_initOptions() {
+		_checkOptions() {
 			if (typeof this._opts.maxHeight !== 'number') {
 				console.error(`maxHeight must be a number not a ${typeof this._opts.maxHeight}.`);
 			}
@@ -61,7 +62,13 @@ const Layout = ((imagesLoaded) => {
 
 			if (this._opts.hasOwnProperty('afterLoad')) {
 				if (typeof this._opts.afterLoad !== 'function') {
-					console.error(`afterLoad must be a function not a ${typeof opts.afterLoad}.`);
+					console.error(`afterLoad must be a function not a ${typeof this._opts.afterLoad}.`);
+				}
+			}
+
+			if (this._opts.hasOwnProperty('imageContainerElement')) {
+				if (typeof this._opts.imageContainerElement !== 'string') {
+					console.error(`imageContainerElement must be a string not a ${typeof this._opts.imageContainerElement}.`);
 				}
 			}
 		}
@@ -81,7 +88,7 @@ const Layout = ((imagesLoaded) => {
 				if (this._opts.beforeLoad) this._opts.beforeLoad();
 
 				// Create rows of images.
-				this._createRows(this._images, this._elem.clientWidth);
+				this._createRows(this._images);
 
 				// Stagger animation of each image.
 				this._showImages(instance.images);
@@ -94,36 +101,6 @@ const Layout = ((imagesLoaded) => {
 				let img = image.img;
 				img.setAttribute('data-width', img.offsetWidth);
 				img.setAttribute('data-height', img.offsetHeight);
-			});
-		}
-
-		_showImages(images) {
-			let delay = 0;
-			images.forEach((image) => {
-				let img = image.img;
-			
-				if (this._opts.animation && !(img.classList.contains(this._opts.loadedClassName))) {
-
-					if (typeof this._opts.animationDelay !== 'number') {
-						delay += parseInt(defaults.animationDelay);
-						console.error('animationDelay must be a valid number.');
-					} else {
-						delay += parseInt(this._opts.animationDelay);
-					}
-
-					img.style.animationDelay = `${delay}ms`;
-					img.classList.add(this._opts.loadedClassName);
-				} else {
-					img.style.animationDuration = '0ms';
-					img.classList.add(this._opts.loadedClassName);
-				}
-				
-				this._animationComplete(img);
-
-				// Log error to console if image fails to load.
-				if (!image.isLoaded) {
-					console.error(`${image.img.src} failed to load.`);
-				}
 			});
 		}
 
@@ -141,6 +118,11 @@ const Layout = ((imagesLoaded) => {
 					if (height < this._opts.maxHeight) {
 						this._setDimensions(slice, height);
 						if (this._opts.margin > 0) this._setMargins(slice);
+						for (let i = 0; i < slice.length; i++) {
+							if (!(slice[i].parentNode.classList.contains('bricks__item'))) {
+								this._makeImageContainer(slice);
+							}
+						}
 						imgs = imgs.slice(i);
 						continue loop;
 					}
@@ -148,9 +130,44 @@ const Layout = ((imagesLoaded) => {
 
 				this._setDimensions(slice, Math.min(this._opts.maxHeight, height));
 				if (this._opts.margin > 0) this._setMargins(slice);
+				for (let i = 0; i < slice.length; i++) {
+					if (!(slice[i].parentNode.classList.contains('bricks__item'))) {
+						this._makeImageContainer(slice);
+					}
+				}
 				
 				break;
 			}
+		}
+
+		_showImages(images) {
+			let delay = 0;
+			images.forEach((image) => {
+				let img = image.img;
+			
+				if (this._opts.animation && !(img.classList.contains(this._opts.imageLoadedClassName))) {
+
+					if (typeof this._opts.animationDelay !== 'number') {
+						delay += parseInt(defaults.animationDelay);
+						console.error('animationDelay must be a valid number.');
+					} else {
+						delay += parseInt(this._opts.animationDelay);
+					}
+
+					img.style.animationDelay = `${delay}ms`;
+					img.classList.add(this._opts.imageLoadedClassName);
+				} else {
+					img.style.animationDuration = '0ms';
+					img.classList.add(this._opts.imageLoadedClassName);
+				}
+				
+				this._animationComplete(img);
+
+				// Log error to console if image fails to load.
+				if (!image.isLoaded) {
+					console.error(`${image.img.src} failed to load.`);
+				}
+			});
 		}
 
 		_setDimensions(images, height) {
@@ -168,9 +185,9 @@ const Layout = ((imagesLoaded) => {
 		_setMargins(images) {
 			if (images && images.length) {
 				images.forEach((img, i) => {
-					img.style.removeProperty('margin-left');
+					img.style.removeProperty('margin-right');
 					if (i === images.length-1) {
-						img.style.removeProperty('margin-right');
+						return;
 					} else {
 						img.style.marginRight = this._opts.margin + 'px';
 					}
@@ -208,6 +225,28 @@ const Layout = ((imagesLoaded) => {
 			img.addEventListener('animationend', completed);
 		}
 
+		_makeImageContainer(images) {
+			if (images && images.length) {
+				images.forEach((img, i) => {
+					let el = this._opts.imageContainerElement;
+					let item = this._makeDOMNode(el, 'bricks__item');
+
+					if (el === 'a') {
+						item.href = img.getAttribute('data-href') || '#';
+					}
+					
+					item.appendChild(img);
+					this._elem.appendChild(item);
+				});
+			}
+		}
+
+		_makeDOMNode(el, className) {
+			let element = document.createElement(el);
+			element.classList.add('bricks__item');
+			return element;
+		}
+
 		/**
 		 *
 		 * PUBLIC METHODS
@@ -217,6 +256,7 @@ const Layout = ((imagesLoaded) => {
 		loadNewImages(img) {
 			if (img && img.length && typeof img === 'object') {
 				img.forEach((img) => {
+					img.classList.add('bricks__img');
 					this._images.push(img);
 				});
 				this._loadImages();
@@ -226,8 +266,8 @@ const Layout = ((imagesLoaded) => {
 		}
 	}
 
-	return Layout;
+	return Bricks;
 
 })(imagesLoaded);
 
-export default Layout;
+export default Bricks;

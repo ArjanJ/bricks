@@ -2,44 +2,44 @@
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Layout</title>
+		<title>Bricks</title>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
-		<link rel="stylesheet" href="../build/css/layout.min.css">
+		<link rel="stylesheet" href="../build/css/bricks.min.css">
 	</head>
 	<body>
 		<div class="bricks" data-layout id="1">
-		  <img src="https://unsplash.it/500/800?image=100" alt="" />
-		  <img src="https://unsplash.it/324/380?image=110" alt="" />
-		  <img src="https://unsplash.it/400/350?image=120" alt="" />
-		  <img src="https://unsplash.it/460/690?image=130" alt="" />
-		  <img src="https://unsplash.it/500/340?image=140" alt="" />
-		  <img src="https://unsplash.it/450/700?image=151" alt="" />
-		  <img src="https://unsplash.it/380/300?image=160" alt="" />
-		  <img src="https://unsplash.it/320/310?image=170" alt="" />
-		  <img src="https://unsplash.it/480/300?image=180" alt="" />
-		  <img src="https://unsplash.it/600/305?image=190" alt="" />
+		  <img class="bricks__img" src="https://unsplash.it/500/800?image=100" alt="" />
+		  <img class="bricks__img" src="https://unsplash.it/324/380?image=110" alt="" />
+		  <img class="bricks__img" src="https://unsplash.it/400/350?image=120" alt="" />
+		  <img class="bricks__img" src="https://unsplash.it/460/690?image=130" alt="" />
+		  <img class="bricks__img" src="https://unsplash.it/500/340?image=140" alt="" />
+		  <img class="bricks__img" src="https://unsplash.it/450/700?image=151" alt="" />
+		  <img class="bricks__img" src="https://unsplash.it/380/300?image=160" alt="" />
+		  <img class="bricks__img" src="https://unsplash.it/320/310?image=170" alt="" />
+		  <img class="bricks__img" src="https://unsplash.it/480/300?image=180" alt="" />
+		  <img class="bricks__img" src="https://unsplash.it/600/305?image=190" alt="" />
 		</div>
 
 		<button id="btn">Load more</button>
 
 		<div class="bricks" data-layout id="2">
-		  <img src="https://unsplash.it/500/800?image=111" alt="" />
-		  <img src="https://unsplash.it/324/380?image=220" alt="" />
-		  <img src="https://unsplash.it/400/350?image=320" alt="" />
-		  <img src="https://unsplash.it/460/690?image=430" alt="" />
-		  <img src="https://unsplash.it/500/340?image=540" alt="" />
-		  <img src="https://unsplash.it/450/700?image=651" alt="" />
-		  <img src="https://unsplash.it/380/300?image=760" alt="" />
-		  <img src="https://unsplash.it/320/310?image=170" alt="" />
-		  <img src="https://unsplash.it/480/300?image=180" alt="" />
-		  <img src="https://unsplash.it/600/305?image=190" alt="" />
+		  <img class="bricks__img" src="https://unsplash.it/500/800?image=111" alt="" />
+		  <img class="bricks__img" src="https://unsplash.it/324/380?image=220" alt="" />
+		  <img class="bricks__img" src="https://unsplash.it/400/350?image=320" alt="" />
+		  <img class="bricks__img" src="https://unsplash.it/460/690?image=430" alt="" />
+		  <img class="bricks__img" src="https://unsplash.it/500/340?image=540" alt="" />
+		  <img class="bricks__img" src="https://unsplash.it/450/700?image=651" alt="" />
+		  <img class="bricks__img" src="https://unsplash.it/380/300?image=760" alt="" />
+		  <img class="bricks__img" src="https://unsplash.it/320/310?image=170" alt="" />
+		  <img class="bricks__img" src="https://unsplash.it/480/300?image=180" alt="" />
+		  <img class="bricks__img" src="https://unsplash.it/600/305?image=190" alt="" />
 		</div>
-		<script src="../build/js/Layout.js"></script>
+		<script src="../build/js/bricks.min.js"></script>
 		<script>
 			var a = document.querySelectorAll('[data-layout]');
-			var layouts = [];
+			var bricks = [];
 			for (var i = 0; i < a.length; i++) {
-				layouts[i] = new Layout(a[i], {
+				bricks[i] = new Bricks(a[i], {
 					afterLoad: function() {
 						// console.log('afterLoad');
 					},
@@ -70,7 +70,7 @@
 					ctn.appendChild(img);
 
 				});
-				layouts[0].loadNewImages(imgarr);
+				bricks[0].loadNewImages(imgarr);
 				imgarr = [];
 			}
 

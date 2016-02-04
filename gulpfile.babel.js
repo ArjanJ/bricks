@@ -50,15 +50,16 @@ function scripts() {
 	};
 
 	return browserify(props)
-		.transform(babelify)
+		.transform(babelify, {
+			sourceMaps: true,
+    	ignore: /(vendor)|(node_modules)/
+		})
 		.bundle()
 		.on('error', handleError)
-		.pipe(source('Layout.js'))
+		.pipe(source('bricks.min.js'))
 		.pipe(buffer())
 		.pipe(sourcemaps.init({ loadMaps: true }))
-		.pipe(gulp.dest(paths.js.build))
 		.pipe(uglify())
-		.pipe(rename('Layout.min.js'))
 		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest(paths.js.build));
 }
@@ -77,10 +78,10 @@ function styles() {
 		.pipe(postcss([
 			autoprefixer()
 		]))
-		.pipe(rename('layout.css'))
+		.pipe(rename('bricks.css'))
 		.pipe(gulp.dest(paths.css.build))
 		.pipe(cssnano())
-		.pipe(rename('layout.min.css'))
+		.pipe(rename('bricks.min.css'))
 		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest(paths.css.build))
 }
