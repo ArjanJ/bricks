@@ -32,7 +32,7 @@ const Bricks = ((imagesLoaded) => {
 
 		constructor(elem, opts) {
 			this._elem = elem;
-			this._images = [].slice.call(this._elem.querySelectorAll('img'));
+			this._images = Array.from(this._elem.querySelectorAll('img'));
 			this._opts = Object.assign(defaults, opts);
 			this._init();
 		}
@@ -191,7 +191,6 @@ const Bricks = ((imagesLoaded) => {
 					} else {
 						img.style.marginRight = this._opts.margin + 'px';
 					}
-						
 				});
 			}
 		}

@@ -3,6 +3,7 @@
 import autoprefixer from 'autoprefixer';
 import babel from 'gulp-babel';
 import browserify from 'browserify';
+import browserSync from 'browser-sync';
 import buffer from 'vinyl-buffer';
 import cssnano from 'gulp-cssnano';
 import eslint from 'gulp-eslint';
@@ -14,10 +15,13 @@ import source from 'vinyl-source-stream';
 import sourcemaps from 'gulp-sourcemaps';
 import uglify from 'gulp-uglify';
 
+const bs = browserSync.create();
+
 const dirs = {
 	src: './src',
 	build: './build',
-	lib: './lib'
+	lib: './lib',
+	docs: './docs'
 };
 
 const paths = {
@@ -29,20 +33,40 @@ const paths = {
 	},
 	css: {
 		src: `${dirs.src}/css/*.scss`,
-		build: `${dirs.build}/css`
+		build: `${dirs.build}/css`,
+		docs: `${dirs.docs}/*.scss`
 	}
 };
 
-gulp.task('default', ['watch', 'compileJS', 'packageJS', 'styles']);
+gulp.task('default', ['serve', 'watch', 'compileJS', 'packageJS', 'styles', 'docStyles']);
+
+gulp.task('serve', serve);
+
 gulp.task('watch', watch);
+
 gulp.task('compileJS', compileJS);
+
 gulp.task('packageJS', ['compileJS', 'lint'], packageJS);
 gulp.task('lint', lint);
+
 gulp.task('styles', styles);
+
+gulp.task('docStyles', ['styles'], docStyles);
+
+function serve() {
+	bs.init({
+		server: {
+			baseDir: '.'
+		},
+		open: false,
+		notify: false
+	});
+}
 
 function watch() {
 	gulp.watch(paths.js.src, ['lint', 'compileJS', 'packageJS']);
 	gulp.watch(paths.css.src, ['styles']);
+	gulp.watch(paths.css.docs, ['docStyles']);
 }
 
 function compileJS() {
@@ -89,6 +113,19 @@ function styles() {
 		.pipe(rename('bricks.min.css'))
 		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest(paths.css.build))
+		.pipe(bs.stream());
+}
+
+function docStyles() {
+	return gulp.src(paths.css.docs)
+		.pipe(sass())
+		.on('error', handleError)
+		.pipe(postcss([
+			autoprefixer()
+		]))
+		.pipe(cssnano())
+		.pipe(gulp.dest(dirs.docs))
+		.pipe(bs.stream());
 }
 
 function handleError(err) {
