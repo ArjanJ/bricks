@@ -95,6 +95,9 @@ const Bricks = ((imagesLoaded) => {
 
 				// Call afterLoad().
 				if (this._opts.afterLoad) this._opts.afterLoad();
+
+				// If the Bricks container has a height set on it, remove it after the images are loaded.
+				this._elem.style.removeProperty('height');
 			});
 
 			imgLoad.on('progress', (instance, image) => {
@@ -252,16 +255,44 @@ const Bricks = ((imagesLoaded) => {
 		 *
 		 */
 
-		loadNewImages(img) {
-			if (img && img.length && typeof img === 'object') {
-				img.forEach((img) => {
+		loadNewImages(images, reload = false) {
+			if (images && images.length && typeof images === 'object') {
+				let img;
+
+				if (reload) this._images = [];
+
+				for (let i = 0, ii = images.length; i < ii; i++) {
+					img = new Image();
+					img.src = images[i];
 					img.classList.add('bricks__img');
-					this._images.push(img);
-				});
+					this._images.push(img);	
+					this._elem.appendChild(img);
+				}
+
 				this._loadImages();
 			} else {
-				console.error('appendImages only accepts an array of image nodes.');
+				console.error('loadNewImages only accepts an array of image paths.');
 			}
+		}
+
+		reloadImages() {
+			let images = this._images;
+			let srcs = [];
+
+			// Add static height to container so the page doesn't move up when images are removed.
+			this._elem.style.height = this._elem.clientHeight + 'px';
+
+			images.forEach((img) => {
+				img.parentElement.remove();
+				srcs.push(img.src);
+			});
+
+			setTimeout(() => {
+				this.loadNewImages(srcs, true);
+
+				// Empty the array so there aren't duplicates if this method is called more than once.
+				srcs = [];
+			}, 250);
 		}
 	}
 
