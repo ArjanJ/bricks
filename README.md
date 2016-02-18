@@ -23,6 +23,7 @@ npm install bricks-layout --save-dev
 	<img src="path/to/image.jpg">
 	<img src="path/to/image.jpg">
 </div>
+```
 
 #### Link to CSS
 ```html
@@ -124,3 +125,32 @@ var bricksInstance = new Bricks(bricksElement);
 		</tr>
 	</tbody>
 </table>
+
+## API
+
+#### .addNewImages(images)
+This method is for adding more images to the Bricks element. You can fire this event on click, scroll, resize, etc...
+<table>
+	<thead>
+		<tr>
+			<th>Argument Name</th>
+			<th>Type</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>images</td>
+			<td>array</td>
+			<td>An array of strings. The strings should be the `src` attribute for the image.</td>
+		</tr>
+	</tbody>
+</table>
+
+```js
+// Array of image paths
+var imageSources = ['images/1.jpg', 'images/2.jpg', 'images/3.jpg'];
+
+// Call method on bricks instance
+bricksInstace.addNewImages(imageSources);
+```
