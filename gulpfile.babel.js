@@ -34,7 +34,7 @@ const paths = {
 	css: {
 		src: `${dirs.src}/css/*.scss`,
 		build: `${dirs.build}/css`,
-		docs: `${dirs.docs}/*.scss`
+		docs: `${dirs.docs}/**/*.scss`
 	}
 };
 

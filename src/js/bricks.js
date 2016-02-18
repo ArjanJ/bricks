@@ -80,12 +80,13 @@ const Bricks = ((imagesLoaded) => {
 		}
 
 		_loadImages() {
+
+			// Call beforeLoad().
+			if (this._opts.beforeLoad) this._opts.beforeLoad();
+			
 			const imgLoad = imagesLoaded(this._elem);
 
 			imgLoad.on('always', (instance) => {
-
-				// Call beforeLoad().
-				if (this._opts.beforeLoad) this._opts.beforeLoad();
 
 				// Create rows of images.
 				this._createRows(this._images);
@@ -255,11 +256,9 @@ const Bricks = ((imagesLoaded) => {
 		 *
 		 */
 
-		loadNewImages(images, reload = false) {
+		addNewImages(images) {
 			if (images && images.length && typeof images === 'object') {
 				let img;
-
-				if (reload) this._images = [];
 
 				for (let i = 0, ii = images.length; i < ii; i++) {
 					img = new Image();
@@ -271,13 +270,28 @@ const Bricks = ((imagesLoaded) => {
 
 				this._loadImages();
 			} else {
-				console.error('loadNewImages only accepts an array of image paths.');
+				console.error('addNewImages only accepts an array of image paths.');
+			}
+		}
+
+		removeImages(images) {
+			if (images && images.length && typeof images === 'object') {
+				for (let i = 0, ii = images.length; i < ii; i++) {
+					let index = this._images.indexOf(images[i]);
+					if (index > -1) this._images.splice(index, 1);
+					images[i].parentElement.remove();
+				}
+
+				this._createRows(this._images);
 			}
 		}
 
 		reloadImages() {
 			let images = this._images;
 			let srcs = [];
+
+			// Clear the current images so there are no duplicates.
+			this._images = [];
 
 			// Add static height to container so the page doesn't move up when images are removed.
 			this._elem.style.height = this._elem.clientHeight + 'px';
@@ -288,7 +302,9 @@ const Bricks = ((imagesLoaded) => {
 			});
 
 			setTimeout(() => {
-				this.loadNewImages(srcs, true);
+
+				// Reload the images with the public method.
+				this.addNewImages(srcs);
 
 				// Empty the array so there aren't duplicates if this method is called more than once.
 				srcs = [];
