@@ -16,6 +16,7 @@ const Bricks = ((imagesLoaded) => {
 	const defaults = {
 		animation: true,
 		animationDelay: 50,
+		imageClassName: 'bricks__img',
 		imageContainerElement: 'div',
 		imageLoadedClassName: 'bricks__img--loaded',
 		margin: 0,
@@ -32,8 +33,8 @@ const Bricks = ((imagesLoaded) => {
 
 		constructor(elem, opts) {
 			this._elem = elem;
-			this._images = Array.from(this._elem.querySelectorAll('img'));
 			this._opts = Object.assign(defaults, opts);
+			this._images = Array.from(this._elem.querySelectorAll('.' + this._opts.imageClassName));
 			this._init();
 		}
 
