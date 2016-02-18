@@ -147,10 +147,64 @@ This method is for adding more images to the Bricks element. You can fire this e
 	</tbody>
 </table>
 
+Example:
 ```js
 // Array of image paths
 var imageSources = ['images/1.jpg', 'images/2.jpg', 'images/3.jpg'];
 
-// Call method on bricks instance
+// Call method on Bricks instance
 bricksInstace.addNewImages(imageSources);
 ```
+
+#### .removeImages(images)
+This method is for removing images from the Bricks element. You can fire this event on click, scroll, resize, etc...
+<table>
+	<thead>
+		<tr>
+			<th>Argument Name</th>
+			<th>Type</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>images</td>
+			<td>array</td>
+			<td>An array of image nodes.</td>
+		</tr>
+	</tbody>
+</table>
+
+Example:
+```js
+// Nodelist of images
+var imageNodes = document.querySelectorAll('.bricks__img');
+
+// Array of images to remove
+var imagesToRemove = [imageNodes[2], imageNodes[5], imageNodes[9]];
+
+// Call method on Bricks instance
+bricksInstace.removeImages(imagesToRemove);
+```
+
+#### .reloadImages()
+This method reloads all of the images in the Bricks element.<br>
+<small>Note: The images are fully reloading/downloading, not just re-animating.</small>
+
+Example:
+```js
+bricksInstance.reloadImages();
+```
+
+## Browser Support
+- Chrome
+- Firefox
+- Safari
+- IE 10+
+- Edge
+
+## License
+#### MIT License
+<a href="https://opensource.org/licenses/MIT">MIT</a>
+&copy; 2016 Arjan Jassal
+
