@@ -9,7 +9,7 @@
  */
 .bricks {
   overflow: auto;
-  margin: 0 auto 50px; }
+  margin: 0 auto; }
   .bricks__item {
     float: left; }
   .bricks__img {
