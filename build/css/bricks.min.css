@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 .bricks{overflow:auto;margin:0 auto}.bricks__item{float:left}.bricks__img{opacity:0;-webkit-transform:scale(.5);transform:scale(.5);vertical-align:bottom}.bricks__img--loaded{-webkit-animation:a .25s ease-out;animation:a .25s ease-out;-webkit-animation-fill-mode:forwards;animation-fill-mode:forwards}@-webkit-keyframes a{to{opacity:1;-webkit-transform:scale(1);transform:scale(1)}}@keyframes a{to{opacity:1;-webkit-transform:scale(1);transform:scale(1)}}
+=======
+.bricks{overflow:auto;margin:0 auto 50px}.bricks__item{float:left}.bricks__img{opacity:0;-webkit-transform:scale(.5);transform:scale(.5);vertical-align:bottom}.bricks__img--loaded{-webkit-animation:a .25s ease-out;animation:a .25s ease-out;-webkit-animation-fill-mode:forwards;animation-fill-mode:forwards}@-webkit-keyframes a{to{opacity:1;-webkit-transform:scale(1);transform:scale(1)}}@keyframes a{to{opacity:1;-webkit-transform:scale(1);transform:scale(1)}}
+>>>>>>> mockup
 /*# sourceMappingURL=bricks.min.css.map */

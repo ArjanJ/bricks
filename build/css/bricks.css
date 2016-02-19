@@ -9,7 +9,11 @@
  */
 .bricks {
   overflow: auto;
+<<<<<<< HEAD
   margin: 0 auto; }
+=======
+  margin: 0 auto 50px; }
+>>>>>>> mockup
   .bricks__item {
     float: left; }
   .bricks__img {
