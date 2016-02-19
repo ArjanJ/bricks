@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Bricks - A responsive, justified image layout plugin written in JavaScript, and inspired by Google Images.</title>
+		<meta name="description" content="A responsive, justified image layout plugin written in JavaScript, and inspired by Google Images.">
+		<link href='https://fonts.googleapis.com/css?family=Roboto+Mono:400,700,100,300,500' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+		<link rel="stylesheet" href="docs.css">
+	</head>
+	<body>
+
+		<section class="docs">
+
+			<section class="docs-intro">
+				<article class="docs-wrapper">
+					<h1 class="docs-intro__heading">Briks</h1>
+					<h2 class="docs-intro__subheading">Create justified image layouts like Google Images and Flickr.</h2>
+					<ul class="docs-intro__list">
+						<li class="docs-intro__list-item">No Dependencies</li>
+						<li class="docs-intro__list-item">Lightweight 12kb</li>
+						<li class="docs-intro__list-item">CSS Animation</li>
+					</ul>
+					<p>
+						<!-- Place this tag where you want the button to render. -->
+						<a class="github-button" href="https://github.com/ArjanJ/bricks" data-style="mega" aria-label="View Documentation">View Documentation</a>
+					</p>
+				</article>
+			</section>
+			
+			<div class="docs-demo">
+				<div class="bricks docs-demo__bricks" id="demo">
+					<img class="bricks__img" src="https://unsplash.it/520/350?image=888" />
+					<img class="bricks__img" src="https://unsplash.it/600/400?image=1005" />
+					<img class="bricks__img" src="https://unsplash.it/480/350?image=997" />
+					<img class="bricks__img" src="https://unsplash.it/690/390?image=132" />
+					<img class="bricks__img" src="https://unsplash.it/500/340?image=953" />
+					<img class="bricks__img" src="https://unsplash.it/500/340?image=985" />
+					<img class="bricks__img" src="https://unsplash.it/380/300?image=972" />
+					<img class="bricks__img" src="https://unsplash.it/330/310?image=924" />
+				</div>
+			</div>
+			
+			<div class="docs-actions">
+				<div class="docs-wrapper">
+					<button type="button" class="docs-btn" id="add-images-btn">Add images</button>
+					<button type="button" class="docs-btn" id="remove-images-btn">Remove images</button>
+					<button type="button" class="docs-btn" id="reload-images-btn">Reload images</button>
+				</div>
+			</div>
+
+			<footer class="docs-footer">
+				<div class="docs-wrapper">
+					<div class="grid">
+						<div class="grid__col">
+							<a href="http://www.arjanjassal.me" target="_blank" class="u-heading-5">Made by <strong>Arjan Jassal</strong></a>
+						</div>
+						<div class="grid__col share-links">
+							<a href="https://twitter.com/share" class="twitter-share-button" data-via="ArjanJassal" data-size="large">Tweet</a>
+							<a class="github-button" href="https://github.com/ArjanJ/bricks" data-style="mega" aria-label="Star">Star</a>
+
+						</div>
+					</div>
+				</div>
+			</footer>
+
+			
+		
+		<script src="../build/js/bricks.min.js"></script>
+		<script src="docs.js"></script>
+		
+		<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
+	</body>
+</html>

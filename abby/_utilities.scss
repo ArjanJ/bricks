@@ -1,0 +1,66 @@
+/*------------------------------------*\
+		#UTILITIES
+\*------------------------------------*/
+
+/**
+ * CLEARFIX
+ */
+
+.u-clearfix {
+	@include clearfix;
+}
+
+/**
+ * FONT-SIZES
+ */
+
+[class^="u-heading"] {
+	line-height: 1.15;
+}
+
+.u-heading-1,
+%u-heading-1 {
+  font-size: map-get($heading-sizes, 1);
+  margin-bottom: $base-space;
+}
+
+.u-heading-2,
+%u-heading-2 {
+  font-size: map-get($heading-sizes, 2);
+  margin-bottom: ($base-space / 1.5);
+}
+
+.u-heading-3,
+%u-heading-3 {
+  font-size: map-get($heading-sizes, 3);
+  margin-bottom: ($base-space / 1.875);
+}
+
+.u-heading-4,
+%u-heading-4 {
+  font-size: map-get($heading-sizes, 4);
+  margin-bottom: ($base-space / 3.374);
+}
+
+.u-heading-5,
+%u-heading-5 {
+  font-size: map-get($heading-sizes, 5);
+  margin-bottom: ($base-space / 4.218);
+}
+
+.u-heading-6,
+%u-heading-6 {
+  font-size: map-get($heading-sizes, 6);
+  margin-bottom: ($base-space / 5.062);
+}
+
+/**
+ * BACKGROUND-COLOR
+ */
+
+@each $key, $value in $colors {
+
+	.u-bg-#{$key} {
+		background-color: $value !important;
+	}
+}

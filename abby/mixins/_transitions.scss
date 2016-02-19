@@ -1,0 +1,13 @@
+/*------------------------------------*\
+    #MIXINS - TRANSITIONS
+\*------------------------------------*/
+
+@mixin ease($type: $transition-ease, $speed: $transition-speed) {
+	@if ($type == 'in') {
+		transition: all $speed+s $ease-in;
+	} @elseif ($type == 'out') {
+		transition: all $speed+s $ease-out;
+	} @elseif ($type == 'in-out') {
+		transition: all $speed+s $ease-in-out;
+	}
+}

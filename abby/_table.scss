@@ -1,0 +1,41 @@
+/*------------------------------------*\
+		#TABLE
+\*------------------------------------*/
+
+table,
+.table {
+	box-sizing: border-box;
+	// width: 100%;
+	margin: (0) (0) ($base-space);
+	border-collapse: collapse;
+}
+
+th,
+.th,
+td,
+.td {
+	padding: ($base-space / 2);
+	font-size: 85%;
+	border-right: 1px solid color(light-grey);
+
+	&:last-child {
+		border-right: none;
+	}
+}
+
+th,
+.th {
+	text-align: left;
+}
+
+tr,
+.tr {
+
+	&:nth-child(odd) {
+
+		td,
+		.td {
+			background: color(light-grey);
+		}
+	}
+}

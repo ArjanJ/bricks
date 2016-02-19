@@ -1,0 +1,28 @@
+/*------------------------------------*\
+		#BUTTON
+\*------------------------------------*/
+
+button,
+.button,
+[type="button"],
+[type="submit"],
+[type="reset"] {
+	appearance: none;
+	border: none;
+	display: inline-block;
+	margin: (0) ($base-space / 6) ($base-space) (0);
+	padding: ($base-space / 3) ($base-space);
+	border-radius: 5px;
+	vertical-align: middle;
+	white-space: nowrap;
+	cursor: pointer;
+	line-height: inherit;
+	font-size: $font-size-body;
+	letter-spacing: .2px;
+	color: $text-color;
+	background: color(light-grey);
+
+	&:focus {
+		outline: none;
+	}
+}

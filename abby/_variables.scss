@@ -1,0 +1,98 @@
+/*------------------------------------*\
+		#VARIABLES
+\*------------------------------------*/
+
+
+/**
+ * FONT SIZING
+ */
+
+$font-size-root: 				0.625rem;
+$line-height-base: 			1.6;
+
+$font-size-body: 1.5rem;
+
+$heading-sizes: (
+	1: 5.062rem,
+	2: 4.218rem,
+	3: 3.374rem,
+	4: 2.812rem,
+	5: 2.250rem,
+	6: 1.875rem
+);
+
+$font-size-code: 1.25rem;
+
+/**
+ * FONT WEIGHTS
+ */
+
+$font-weight-default: 	400;
+$font-weight-headings: 	700;
+
+/**
+ * FONT FAMILY
+ */
+
+$font-copy: 		'Source Sans Pro', 'Arial', sans-serif;
+$font-headings: 'Source Sans Pro', 'Arial', sans-serif;
+
+/**
+ * BASE SPACING VALUE
+ */
+
+$base-space: ($line-height-base) * ($font-size-body);
+
+/**
+ * BREAKPOINTS
+ */
+
+$breakpoints: (
+	xsmall: 	400px,
+	small: 		640px,
+	medium: 	768px,
+	large: 		960px,
+	xlarge: 	1200px
+);
+
+/**
+ * GRID
+ */
+
+$grid-gutter: ($base-space / 3);
+
+/**
+ * COLORS
+ */
+
+$colors: 	(
+	black: 				#212121,
+	dark-grey: 		#424242,
+	mid-grey: 		#BDBDBD,
+	light-grey: 	#F1F1F1,
+	white: 				#FEFEFE,
+	red: 					#F44336,
+	pink: 				#E91E63,
+	purple: 			#9C27B0,
+	indigo: 			#3F51B5,
+	blue: 				#2196F3,
+	cyan: 				#00BCD4,
+	green: 				#4CAF50,
+	yellow: 			#FFEB3B,
+	orange: 			#FF9800,
+	brown: 				#795548
+);
+
+$headings-color: 	map-get($colors, black);
+$text-color: 			map-get($colors, black);
+
+/**
+ * TRANSITIONS
+ */
+
+$ease-in: 		cubic-bezier(0.755, 0.05, 0.855, 0.06);
+$ease-out: 		cubic-bezier(0.23, 1, 0.32, 1);
+$ease-in-out: cubic-bezier(0.86, 0, 0.07, 1);
+
+$transition-ease: 	'out' !default;
+$transition-speed: 	0.25 !default;

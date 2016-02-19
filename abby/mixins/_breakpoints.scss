@@ -1,0 +1,19 @@
+/*------------------------------------*\
+		#MIXINS / BREAKPOINTS
+\*------------------------------------*/
+
+@mixin bp-custom($width) {
+	@media screen and (min-width: $width) {
+		@content;
+	}
+}
+
+@mixin bp($bp) {
+	@if map-has-key($breakpoints, $bp) {
+		@media (min-width: #{map-get($breakpoints, $bp)}) {
+      @content;
+    }
+	} @else {
+    @warn "No value could be retrieved from `#{$bp}`." + "Please make sure it is defined in `$breakpoints` map.";
+  }
+}

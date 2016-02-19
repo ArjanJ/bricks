@@ -1,0 +1,24 @@
+/*------------------------------------*\
+		#CODE
+\*------------------------------------*/
+
+pre {
+	display: block;
+}
+
+pre > code {
+	display: block;
+	margin-bottom: $base-space;
+  white-space: pre;
+  padding: ($base-space / 1.5);
+  font-size: $font-size-code;
+}
+
+code {
+	padding: ($base-space / 6);
+	border-radius: 5px;
+  word-wrap: break-word;
+  background: color(light-grey);
+  font-size: $font-size-body;
+  color: color(black);
+}

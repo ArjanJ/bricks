@@ -1,0 +1,17 @@
+/*------------------------------------*\
+		#LIST
+\*------------------------------------*/
+
+ul,
+ol {
+	margin: (0) (0) ($base-space) ($base-space / 1.5);
+
+	ul,
+	ol {
+		margin: (0) (0) (0) ($base-space / 1.5);
+	}
+}
+
+li {
+	margin-bottom: ($base-space / 3);
+}

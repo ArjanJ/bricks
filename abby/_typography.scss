@@ -1,0 +1,72 @@
+/*------------------------------------*\
+    #TYPOGRAPHY
+\*------------------------------------*/
+
+:root {
+  font-size: $font-size-root;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: $font-copy;
+  font-weight: $font-weight-default;
+  font-size: $font-size-body;
+  line-height: $line-height-base;
+  color: $text-color;
+}
+
+p {
+  margin: 0 0 $base-space;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.15;
+  font-weight: $font-weight-headings;
+  font-family: $font-headings;
+  color: $headings-color;
+}
+
+h1 {
+  font-size: map-get($heading-sizes, 1);
+  margin-bottom: $base-space;
+}
+
+h2 {
+  font-size: map-get($heading-sizes, 2);
+  margin-bottom: ($base-space / 1.5);
+}
+
+h3 {
+  font-size: map-get($heading-sizes, 3);
+  margin-bottom: ($base-space / 1.875);
+}
+
+h4 {
+  font-size: map-get($heading-sizes, 4);
+  margin-bottom: ($base-space / 3.374);
+}
+
+h5 {
+  font-size: map-get($heading-sizes, 5);
+  margin-bottom: ($base-space / 4.218);
+}
+
+h6 {
+  font-size: map-get($heading-sizes, 6);
+  margin-bottom: ($base-space / 5.062);
+}
+
+small {
+  font-size: 75%;
+}
+
+.underline {
+  text-decoration: underline;
+}
