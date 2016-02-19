@@ -7,6 +7,7 @@ import browserSync from 'browser-sync';
 import buffer from 'vinyl-buffer';
 import cssnano from 'gulp-cssnano';
 import eslint from 'gulp-eslint';
+import ghPages from 'gulp-gh-pages';
 import gulp from 'gulp';
 import rename from 'gulp-rename';
 import postcss from 'gulp-postcss';
@@ -35,7 +36,8 @@ const paths = {
 		src: `${dirs.src}/css/*.scss`,
 		build: `${dirs.build}/css`,
 		docs: `${dirs.docs}/**/*.scss`
-	}
+	},
+	deploy: `${dirs.docs}/**/*`
 };
 
 gulp.task('default', ['serve', 'watch', 'compileJS', 'packageJS', 'styles', 'docStyles']);
@@ -47,11 +49,14 @@ gulp.task('watch', watch);
 gulp.task('compileJS', compileJS);
 
 gulp.task('packageJS', ['compileJS', 'lint'], packageJS);
+
 gulp.task('lint', lint);
 
 gulp.task('styles', styles);
 
 gulp.task('docStyles', ['styles'], docStyles);
+
+gulp.task('deploy', deploy);
 
 function serve() {
 	bs.init({
@@ -126,6 +131,11 @@ function docStyles() {
 		.pipe(cssnano())
 		.pipe(gulp.dest(dirs.docs))
 		.pipe(bs.stream());
+}
+
+function deploy() {
+	return gulp.src(paths.deploy)
+		.pipe(ghPages());
 }
 
 function handleError(err) {
