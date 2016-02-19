@@ -95,6 +95,7 @@ function packageJS() {
 		.pipe(sourcemaps.init({ loadMaps: true }))
 		.pipe(uglify())
 		.pipe(sourcemaps.write('./'))
+		.pipe(gulp.dest(dirs.docs))
 		.pipe(gulp.dest(paths.js.build));
 }
 
