@@ -48,7 +48,8 @@ a {
 			font-size: map-get($heading-sizes, 1) * 3;
 			color: $cyan;
 			margin: 0;
-			letter-spacing: -$base-space / 1.25;
+			transform: translateX(-9px);
+			letter-spacing: -$base-space / 1.5;
 		}
 
 		&__subheading {
