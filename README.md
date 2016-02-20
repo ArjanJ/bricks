@@ -100,10 +100,16 @@ var bricksInstance = new Bricks(bricksElement);
 			<td>The class name that tells Bricks that the image is part of the layout.</td>
 		</tr>
 		<tr>
-			<td>imageContainerElement</td>
+			<td>imageContainer</td>
 			<td>string</td>
 			<td>div</td>
 			<td>The element that the images will be wrapped in, e.g: 'div', or 'span'.</td>
+		</tr>
+		<tr>
+			<td>imageContainerClassName</td>
+			<td>string</td>
+			<td>bricks__img</td>
+			<td>The class name of the element that the images will be wrapped.</td>
 		</tr>
 		<tr>
 			<td>imageLoadedClassName</td>

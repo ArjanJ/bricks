@@ -17,7 +17,8 @@ const Bricks = ((imagesLoaded) => {
 		animation: true,
 		animationDelay: 50,
 		imageClassName: 'bricks__img',
-		imageContainerElement: 'div',
+		imageContainer: 'div',
+		imageContainerClassName: 'bricks__item',
 		imageLoadedClassName: 'bricks__img--loaded',
 		margin: 0,
 		maxHeight: 250
@@ -34,7 +35,7 @@ const Bricks = ((imagesLoaded) => {
 		constructor(elem, opts) {
 			this._elem = elem;
 			this._opts = Object.assign(defaults, opts);
-			this._images = Array.from(this._elem.querySelectorAll('.' + this._opts.imageClassName));
+			this._images = Array.from(this._elem.querySelectorAll(`.${this._opts.imageClassName}`));
 			this._init();
 		}
 
@@ -67,9 +68,9 @@ const Bricks = ((imagesLoaded) => {
 				}
 			}
 
-			if (this._opts.hasOwnProperty('imageContainerElement')) {
-				if (typeof this._opts.imageContainerElement !== 'string') {
-					console.error(`imageContainerElement must be a string not a ${typeof this._opts.imageContainerElement}.`);
+			if (this._opts.hasOwnProperty('imageContainer')) {
+				if (typeof this._opts.imageContainer !== 'string') {
+					console.error(`imageContainer must be a string not a ${typeof this._opts.imageContainer}.`);
 				}
 			}
 		}
@@ -111,7 +112,7 @@ const Bricks = ((imagesLoaded) => {
 
 		_createRows(images) {
 			const containerWidth = this._elem.clientWidth;
-			let imgs = this._images.slice();
+			let imgs = this._images;
 			let slice, height;
 
 			loop: while (imgs.length > 0) {
@@ -122,12 +123,17 @@ const Bricks = ((imagesLoaded) => {
 
 					if (height < this._opts.maxHeight) {
 						this._setDimensions(slice, height);
+
 						if (this._opts.margin > 0) this._setMargins(slice);
+
 						for (let i = 0; i < slice.length; i++) {
-							if (!(slice[i].parentNode.classList.contains('bricks__item'))) {
+
+							if (!(slice[i].parentNode.classList.contains(this._opts.imageContainerClassName))) {
 								this._makeImageContainer(slice);
 							}
+
 						}
+
 						imgs = imgs.slice(i);
 						continue loop;
 					}
@@ -135,8 +141,10 @@ const Bricks = ((imagesLoaded) => {
 
 				this._setDimensions(slice, Math.min(this._opts.maxHeight, height));
 				if (this._opts.margin > 0) this._setMargins(slice);
+
 				for (let i = 0; i < slice.length; i++) {
-					if (!(slice[i].parentNode.classList.contains('bricks__item'))) {
+
+					if (!(slice[i].parentNode.classList.contains(this._opts.imageContainerClassName))) {
 						this._makeImageContainer(slice);
 					}
 				}
@@ -181,8 +189,8 @@ const Bricks = ((imagesLoaded) => {
 					let w = parseInt(img.getAttribute('data-width'));
 					let h = parseInt(img.getAttribute('data-height'));
 					
-					img.style.width = height * (w / h) + 'px';
-					img.style.height = height + 'px';
+					img.style.width = `${height * (w / h)}px`;
+					img.style.height = `${height}px`;
 				});
 			}
 		}
@@ -194,7 +202,7 @@ const Bricks = ((imagesLoaded) => {
 					if (i === images.length-1) {
 						return;
 					} else {
-						img.style.marginRight = this._opts.margin + 'px';
+						img.style.marginRight = `${this._opts.margin}px`;
 					}
 				});
 			}
@@ -232,8 +240,8 @@ const Bricks = ((imagesLoaded) => {
 		_makeImageContainer(images) {
 			if (images && images.length) {
 				images.forEach((img, i) => {
-					let el = this._opts.imageContainerElement;
-					let item = this._makeDOMNode(el, 'bricks__item');
+					let el = this._opts.imageContainer;
+					let item = this._makeDOMNode(el, this._opts.imageContainerClassName);
 
 					if (el === 'a') {
 						item.href = img.getAttribute('data-href') || '#';
@@ -247,7 +255,7 @@ const Bricks = ((imagesLoaded) => {
 
 		_makeDOMNode(el, className) {
 			let element = document.createElement(el);
-			element.classList.add('bricks__item');
+			element.classList.add(this._opts.imageContainerClassName);
 			return element;
 		}
 
@@ -264,7 +272,7 @@ const Bricks = ((imagesLoaded) => {
 				for (let i = 0, ii = images.length; i < ii; i++) {
 					img = new Image();
 					img.src = images[i];
-					img.classList.add('bricks__img');
+					img.classList.add(this._opts.imageClassName);
 					this._images.push(img);	
 					this._elem.appendChild(img);
 				}
@@ -295,7 +303,7 @@ const Bricks = ((imagesLoaded) => {
 			this._images = [];
 
 			// Add static height to container so the page doesn't move up when images are removed.
-			this._elem.style.height = this._elem.clientHeight + 'px';
+			this._elem.style.height = `${this._elem.clientHeight}px`;
 
 			images.forEach((img) => {
 				img.parentElement.remove();
