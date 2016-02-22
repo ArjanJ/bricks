@@ -1,11 +1,18 @@
 {
-  "name": "bricks",
-  "version": "0.0.1",
-  "description": "A responsive, justified image layout plugin written in JavaScript, and inspired by Google Images.",
+  "name": "bricks-layout",
+  "version": "1.0.0",
+  "description": "Create justified image layouts like Google Images and Flickr.",
   "main": "./lib/bricks.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "layout",
+    "google",
+    "images",
+    "javascript",
+    "es6"
+  ],
   "author": "ArjanJ <hello@arjanjassal.com>",
   "license": "MIT",
   "devDependencies": {

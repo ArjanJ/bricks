@@ -1,5 +1,5 @@
 # Bricks
-A responsive, justified image layout plugin written in JavaScript, and inspired by Google Images.
+Create justified image layouts like Google Images and Flickr.
 
 ## Demo
 <a href="">View</a>
@@ -159,7 +159,7 @@ Example:
 var imageSources = ['images/1.jpg', 'images/2.jpg', 'images/3.jpg'];
 
 // Call method on Bricks instance
-bricksInstace.addNewImages(imageSources);
+bricksInstance.addNewImages(imageSources);
 ```
 
 #### .removeImages(images)
@@ -190,7 +190,7 @@ var imageNodes = document.querySelectorAll('.bricks__img');
 var imagesToRemove = [imageNodes[2], imageNodes[5], imageNodes[9]];
 
 // Call method on Bricks instance
-bricksInstace.removeImages(imagesToRemove);
+bricksInstance.removeImages(imagesToRemove);
 ```
 
 #### .reloadImages()
@@ -202,12 +202,27 @@ Example:
 bricksInstance.reloadImages();
 ```
 
+## CSS Animation
+The animation that plays after an image loads is easily customizable in the <code>bricks.css</code> or <code>bricks.scss</code> file. Simply set the starting point properties on the <code>bricks__img</code> class and define the end point properties in the <code>bricks-animtion</code> keyframe animation.
+
+## Links
+If you want the images to be links you can set the <code>imageContainer</code> option to <code>'a'</code>. In your markup you can specify a <code>data-href</code> attribute on the image and that will be used as the <code>href</code> value in the anchor tag.
+
+```html
+<img class="bricks__img" data-href="https://somewebsite.io" src="https://unsplash.it/520/350?image=888" />
+```
+
 ## Browser Support
 - Chrome
 - Firefox
 - Safari
 - IE 10+
 - Edge
+
+## Credits
+- <a href="https://github.com/ptgamr/google-image-layout">ptgamr for creating his google-image-layout algorithm.</a>
+- <a href="//imagesloaded.desandro.com">David Desandro for ImagesLoaded</a>
+-	<a href="https://unsplash.it/images">Unsplash.it for the awesome images.</a>
 
 ## License
 #### MIT License
