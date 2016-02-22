@@ -220,9 +220,9 @@ If you want the images to be links you can set the <code>imageContainer</code> o
 - Edge
 
 ## Credits
-- <a href="https://github.com/ptgamr/google-image-layout">ptgamr for creating his google-image-layout algorithm.</a>
+- <a href="https://github.com/ptgamr/google-image-layout">ptgamr for creating the google-image-layout algorithm</a>
 - <a href="//imagesloaded.desandro.com">David Desandro for ImagesLoaded</a>
--	<a href="https://unsplash.it/images">Unsplash.it for the awesome images.</a>
+-	<a href="https://unsplash.it/images">Unsplash for the awesome images</a>
 
 ## License
 #### MIT License
