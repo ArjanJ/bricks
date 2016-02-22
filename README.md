@@ -2,7 +2,7 @@
 Create justified image layouts like Google Images and Flickr.
 
 ## Demo
-<a href="">View</a>
+<a href="http://bricks.arjanjassal.me" target="_blank">View</a>
 
 ## Install
 
