@@ -2,6 +2,10 @@
 
 Create justified image layouts like Google Images and Flickr.
 
+- No dependencies
+- 12kb (without gZip)
+- CSS Animations
+
 ## Demo
 <a href="http://bricks.arjanjassal.me" target="_blank">View</a>
 
