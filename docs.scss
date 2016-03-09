@@ -5,10 +5,6 @@ $pink: rgba(162,30,109,1);
 $purple: rgba(32,13,57,1);
 $cyan: #00f5fd;
 
-#___plusone_0 {
-	vertical-align: middle !important;
-}
-
 a {
 	color: $pink;
 }
@@ -27,8 +23,10 @@ a {
 	}
 
 	&-btn {
+		min-width: 156px;
 		text-transform: uppercase;
 		font-weight: 700;
+		font-size: 1.4rem;
 		border: 2px solid $purple;
 		color: $pink;
 		background: none;
