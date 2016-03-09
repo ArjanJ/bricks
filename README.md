@@ -1,4 +1,5 @@
-# Bricks
+[![Bricks — Create justified image layouts like Google Images and Flickr.](http://bricks.arjanjassal.me/bricks-cover.jpg)](http://bricks.arjanjassal.me)
+
 Create justified image layouts like Google Images and Flickr.
 
 ## Demo
