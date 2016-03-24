@@ -5,7 +5,7 @@ import imagesLoaded from 'imagesloaded';
  *
  * Bricks - A responsive, justified image layout plugin written in
  * JavaScript, and inspired by Google Images.
- * v0.0.1
+ * v1.0.0
  * Arjan Jassal <hello@arjanjassal.com>
  * MIT License
  *
@@ -127,11 +127,9 @@ const Bricks = ((imagesLoaded) => {
 						if (this._opts.margin > 0) this._setMargins(slice);
 
 						for (let i = 0; i < slice.length; i++) {
-
 							if (!(slice[i].parentNode.classList.contains(this._opts.imageContainerClassName))) {
 								this._makeImageContainer(slice);
 							}
-
 						}
 
 						imgs = imgs.slice(i);
@@ -143,7 +141,6 @@ const Bricks = ((imagesLoaded) => {
 				if (this._opts.margin > 0) this._setMargins(slice);
 
 				for (let i = 0; i < slice.length; i++) {
-
 					if (!(slice[i].parentNode.classList.contains(this._opts.imageContainerClassName))) {
 						this._makeImageContainer(slice);
 					}
