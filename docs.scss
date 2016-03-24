@@ -39,7 +39,7 @@ a {
 	}
 
 	&-intro {
-		padding: ($base-space) (0);
+		padding: ($base-space * 2) (0);
 		background: linear-gradient(to bottom, $pink 0%, $purple 100%);
 
 		&__heading {
@@ -47,7 +47,7 @@ a {
 			color: $cyan;
 			margin: 0;
 			transform: translateX(-9px);
-			letter-spacing: -$base-space / 1.5;
+			letter-spacing: -16px;
 		}
 
 		&__subheading {
