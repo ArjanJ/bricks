@@ -91,10 +91,8 @@ const Bricks = ((imagesLoaded) => {
 			imgLoad.on('always', (instance) => {
 
 				// Create rows of images.
-				this._createRows(this._images);
-
-				// Stagger animation of each image.
-				this._showImages(instance.images);
+				// Stagger animation of each images after layout is done.
+				this._createRows(this._images, this._showImages.bind(this, instance.images));
 
 				// Call afterLoad().
 				if (this._opts.afterLoad) this._opts.afterLoad();
@@ -110,7 +108,7 @@ const Bricks = ((imagesLoaded) => {
 			});
 		}
 
-		_createRows(images) {
+		_createRows(images, callback) {
 			const containerWidth = this._elem.clientWidth;
 			let imgs = this._images;
 			let slice, height;
@@ -148,6 +146,10 @@ const Bricks = ((imagesLoaded) => {
 				
 				break;
 			}
+
+			if (callback && typeof callback === 'function') {
+				callback();
+			}
 		}
 
 		_showImages(images) {
@@ -181,7 +183,7 @@ const Bricks = ((imagesLoaded) => {
 		}
 
 		_setDimensions(images, height) {
-			if (images && images.length) {
+			if (images && Array.isArray(images)) {
 				images.forEach((img, i) => {
 					let w = parseInt(img.getAttribute('data-width'));
 					let h = parseInt(img.getAttribute('data-height'));
@@ -193,7 +195,7 @@ const Bricks = ((imagesLoaded) => {
 		}
 
 		_setMargins(images) {
-			if (images && images.length) {
+			if (images && Array.isArray(images)) {
 				images.forEach((img, i) => {
 					img.style.removeProperty('margin-right');
 					if (i === images.length-1) {
@@ -214,7 +216,7 @@ const Bricks = ((imagesLoaded) => {
 				containerWidth += margin;
 			}
 
-			if (images && images.length) {
+			if (images && Array.isArray(images)) {
 				images.forEach((img, i) => {
 					let w = parseInt(img.getAttribute('data-width'));
 					let h = parseInt(img.getAttribute('data-height'));
@@ -235,7 +237,7 @@ const Bricks = ((imagesLoaded) => {
 		}
 
 		_makeImageContainer(images) {
-			if (images && images.length) {
+			if (images && Array.isArray(images)) {
 				images.forEach((img, i) => {
 					let el = this._opts.imageContainer;
 					let item = this._makeDOMNode(el, this._opts.imageContainerClassName);
@@ -263,15 +265,15 @@ const Bricks = ((imagesLoaded) => {
 		 */
 
 		addNewImages(images) {
-			if (images && images.length && typeof images === 'object') {
+			if (images && Array.isArray(images)) {
 				let img;
 
 				for (let i = 0, ii = images.length; i < ii; i++) {
 					img = new Image();
 					img.src = images[i];
 					img.classList.add(this._opts.imageClassName);
-					this._images.push(img);	
-					this._elem.appendChild(img);
+					this._images.push(img);
+					this._makeImageContainer([img]);
 				}
 
 				this._loadImages();
@@ -281,7 +283,7 @@ const Bricks = ((imagesLoaded) => {
 		}
 
 		removeImages(images) {
-			if (images && images.length && typeof images === 'object') {
+			if (images && Array.isArray(images)) {
 				for (let i = 0, ii = images.length; i < ii; i++) {
 					let index = this._images.indexOf(images[i]);
 					if (index > -1) this._images.splice(index, 1);
