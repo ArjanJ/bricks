@@ -1,4 +1,4 @@
-[![Bricks — Create justified image layouts like Google Images and Flickr.](https://raw.githubusercontent.com/ArjanJ/bricks/gh-pages/bricks-cover.jpg](https://arjanj.github.io/bricks/)
+![Bricks — Create justified image layouts like Google Images and Flickr.](https://i.imgur.com/Qcrekwo.jpg)
 
 Create justified image layouts like Google Images and Flickr.
 
@@ -7,7 +7,7 @@ Create justified image layouts like Google Images and Flickr.
 - CSS Animations
 
 ## Demo
-<a href="https://arjanj.github.io/bricks/" target="_blank">View</a>
+<a href="https://arjanj.github.io/bricks/" target="_blank">View demo</a>
 
 ## Install
 
